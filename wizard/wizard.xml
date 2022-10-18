@@ -39,7 +39,7 @@
 
         <menuitem id="menu_introdoo"
          name="Menu "
-         parent="contacts.menu_contacts"
+         parent="my_library.library_base_menu"
          sequence="10"/>
 
        <menuitem id="submwnu_introdoo"
