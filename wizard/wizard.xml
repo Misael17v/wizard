@@ -23,7 +23,7 @@
                     </group>
                     <!-- aqui va los campos que se crearon en wizard.py-->
                     <group>
-                        <field name="name"/>
+                        <field name="name_li"/>
                         <field name="user_id"/>
                     </group>
                   </group>
@@ -52,16 +52,25 @@
             <field name="res_model">wizard</field>
             <!-- aqui el name="view_mode el cual hace refencia al modo de vista  la cual es de tipo form"-->
             <field name="view_mode">form</field>
-            <!-- -->
+            <!-- aqui usamos view_id, y el ref lo sacamos del id del primer record (1)-->
             <field name="view_id" ref="wizard_prueba"/>
+            <!-- usamos el target para que aparezca el menu-->
             <field name="target">new</field>
         </record>
-
+        
+        <!--Este es el menu padre, aqui va el id con el que vamos a identificar,
+             2.- el name, es nombre que va a llevar del menu,
+            3.-el parent de este es el id_externo de donde se saca desde odoo,
+            4.- lleva una secuencia -->
         <menuitem id="menu_introdoo"
          name="Menu "
          parent="my_library.library_base_menu"
          sequence="10"/>
-
+       <!-- Menu hijo, para este, 1.-necesitamos un id para identificarlo,
+            2.- lleva el nombre, 3.- una secuencia,
+            4.-un action, que este action lleva el id del segundo record (2),
+            5.-parent,primero ponemos el nombre del modulo, pues un punto y usamos el id del menu padre
+        que es menu_introdoo -->
        <menuitem id="submwnu_introdoo"
        name="pfd"
        sequence="3"
