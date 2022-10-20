@@ -3,10 +3,10 @@ from odoo import models,fields,api
 class ResCompany(models.TransientModel):
     _name= 'wizard'
     
-    date_from=fields.Datetime('Date from')
-    date_to=fields.Datetime('date to')
-    name_li=fields.Many2one('library.book',string="titulo")
-    user_id=fields.Many2one('res.partner', string='usuario')
+    date_from=fields.Date('Fecha inicial')
+    date_to=fields.Date('Fecha final')
+    name_li=fields.Many2one('library.book',string="Codigo")
+    user_id=fields.Many2one('res.partner', string='Factura')
     
     #boton de imprimir, definimos una funcion,usamos un nombre para el boton imprimir que esta en wizard.xml el cual es:
     #<button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight" />
@@ -19,9 +19,20 @@ class ResCompany(models.TransientModel):
           #por lo que vamos a juntar esos 2 con un punto y debe quedar a unidos algo as: my_library.action_report_wizard
           
     def check_report(self):
+        domain=[]
+        user_id = self.user_id
+        if user_id:
+            domain += [('user_id','=', user_id[0])]
+        date_from= self.date_from
+        if date_from:
+            domain += [('date_release','>=', date_from)]
+        date_to= self.date_to
+        if date_to:
+            domain += [('date_release','<=', date_to)]
+            print("domain",domain)
+        
         print("test...", self.read()[0])
-        busqueda =self.env['library.book'].search_read([])
-        print("Busqueda",busqueda)
+        busqueda =self.env['library.book'].search_read(domain)
         data = {
             'form': self.read()[0],
             'busqueda':busqueda
